@@ -2,16 +2,17 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 39,
    "metadata": {},
    "outputs": [],
    "source": [
-    "import pandas as pd"
+    "import os\n",
+    "import csv"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 40,
    "metadata": {},
    "outputs": [
     {
@@ -20,7 +21,7 @@
        "'/Users/Preethi/Desktop/python-challenge/PyBank'"
       ]
      },
-     "execution_count": 28,
+     "execution_count": 40,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -31,95 +32,69 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 32,
+   "execution_count": 60,
    "metadata": {},
    "outputs": [],
    "source": [
-    "pybankfile=\"budget_data.csv\""
+    "pybankfile_path=\"budget_data.csv\""
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 33,
+   "execution_count": 66,
    "metadata": {},
    "outputs": [
     {
      "data": {
-      "text/html": [
-       "<div>\n",
-       "<style scoped>\n",
-       "    .dataframe tbody tr th:only-of-type {\n",
-       "        vertical-align: middle;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe tbody tr th {\n",
-       "        vertical-align: top;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe thead th {\n",
-       "        text-align: right;\n",
-       "    }\n",
-       "</style>\n",
-       "<table border=\"1\" class=\"dataframe\">\n",
-       "  <thead>\n",
-       "    <tr style=\"text-align: right;\">\n",
-       "      <th></th>\n",
-       "      <th>Date</th>\n",
-       "      <th>Profit/Losses</th>\n",
-       "    </tr>\n",
-       "  </thead>\n",
-       "  <tbody>\n",
-       "    <tr>\n",
-       "      <th>0</th>\n",
-       "      <td>Jan-2010</td>\n",
-       "      <td>867884</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>1</th>\n",
-       "      <td>Feb-2010</td>\n",
-       "      <td>984655</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>2</th>\n",
-       "      <td>Mar-2010</td>\n",
-       "      <td>322013</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>3</th>\n",
-       "      <td>Apr-2010</td>\n",
-       "      <td>-69417</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>4</th>\n",
-       "      <td>May-2010</td>\n",
-       "      <td>310503</td>\n",
-       "    </tr>\n",
-       "  </tbody>\n",
-       "</table>\n",
-       "</div>"
-      ],
       "text/plain": [
-       "       Date  Profit/Losses\n",
-       "0  Jan-2010         867884\n",
-       "1  Feb-2010         984655\n",
-       "2  Mar-2010         322013\n",
-       "3  Apr-2010         -69417\n",
-       "4  May-2010         310503"
+       "'/Users/Preethi/Desktop/python-challenge/PyBank'"
       ]
      },
-     "execution_count": 33,
+     "execution_count": 66,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "pybankfile_pd = pd.read_csv(pybankfile)\n",
-    "pybankfile_pd.head() "
+    "pwd!"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 34,
+   "execution_count": 62,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open(pybankfile_path, newline='') as pybankfile:\n",
+    "      pybank_csvreader = csv.reader(pybankfile, delimiter=',')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ValueError",
+     "evalue": "I/O operation on closed file.",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-64-522f54c68c1c>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;31m# Read the header row first (skip this step if there is no header)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0mpybankfile_header\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnext\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mpybank_csvreader\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      3\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mpybankfile_header\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mValueError\u001b[0m: I/O operation on closed file."
+     ]
+    }
+   ],
+   "source": [
+    " # Read the header row first (skip this step if there is no header)\n",
+    "pybankfile_header = next(pybank_csvreader)\n",
+    "print(pybankfile_header)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
    "metadata": {},
    "outputs": [
     {
@@ -247,6 +222,28 @@
    ],
    "source": [
     "pybankfile_pd.min()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Date             Jan-2010Feb-2010Mar-2010Apr-2010May-2010Jun-20...\n",
+       "Profit/Losses                                             38382578\n",
+       "dtype: object"
+      ]
+     },
+     "execution_count": 38,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "pybankfile_pd.sum()"
    ]
   },
   {

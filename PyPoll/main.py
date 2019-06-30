@@ -171,7 +171,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 206,
+   "execution_count": 214,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -179,18 +179,18 @@
     "print((\"Election Results \\n----------------------------------\"),file=f) \n",
     "print(\"Total votes: %s\" %all_votes,file=f) \n",
     "print(\"\\n----------------------------------\",file=f)\n",
-    "print((candidate_list[0],\":\",per_correy,\"%\", \"(\", correy_votes,\")\"),file=f)\n",
-    "print((candidate_list[1],\":\",per_otooley,\"%\", \"(\", otooley_votes,\")\"),file=f)\n",
-    "print((candidate_list[2],\":\",per_khan,\"%\", \"(\", khan_votes,\")\"),file=f)\n",
-    "print((candidate_list[3],\":\",per_li,\"%\", \"(\", li_votes,\")\"),file=f)\n",
+    "print(candidate_list[0],\":\",per_correy,\"%\", \"(\", correy_votes,\")\",file=f)\n",
+    "print(candidate_list[1],\":\",per_otooley,\"%\", \"(\", otooley_votes,\")\",file=f)\n",
+    "print(candidate_list[2],\":\",per_khan,\"%\", \"(\", khan_votes,\")\",file=f)\n",
+    "print(candidate_list[3],\":\",per_li,\"%\", \"(\", li_votes,\")\",file=f)\n",
     "print(\"----------------------------------\",file=f)\n",
-    "print((\"Winner: \",winner_name),file=f) \n",
+    "print(\"Winner: \",winner_name,file=f) \n",
     "f.close()"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 207,
+   "execution_count": 215,
    "metadata": {},
    "outputs": [
     {

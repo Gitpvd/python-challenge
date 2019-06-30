@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 39,
+   "execution_count": 90,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -12,7 +12,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 40,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -21,7 +21,7 @@
        "'/Users/Preethi/Desktop/python-challenge/PyBank'"
       ]
      },
-     "execution_count": 40,
+     "execution_count": 4,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -32,218 +32,303 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 60,
+   "execution_count": 42,
    "metadata": {},
    "outputs": [],
    "source": [
-    "pybankfile_path=\"budget_data.csv\""
+    "pybankfile=\"budget_data.csv\""
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 66,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "'/Users/Preethi/Desktop/python-challenge/PyBank'"
-      ]
-     },
-     "execution_count": 66,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "pwd!"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 62,
+   "execution_count": 291,
    "metadata": {},
    "outputs": [],
    "source": [
-    "with open(pybankfile_path, newline='') as pybankfile:\n",
-    "      pybank_csvreader = csv.reader(pybankfile, delimiter=',')"
+    "#list to hold field names\n",
+    "pl_list=[]\n",
+    "#list to hold P&L values\n",
+    "plvalues = []\n",
+    "#list to hold date values\n",
+    "dates=[]\n",
+    "pldata={\"dates\",\"pl_list\",\"delta\"}"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 64,
-   "metadata": {},
-   "outputs": [
-    {
-     "ename": "ValueError",
-     "evalue": "I/O operation on closed file.",
-     "output_type": "error",
-     "traceback": [
-      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
-      "\u001b[0;32m<ipython-input-64-522f54c68c1c>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;31m# Read the header row first (skip this step if there is no header)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0mpybankfile_header\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnext\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mpybank_csvreader\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      3\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mpybankfile_header\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
-      "\u001b[0;31mValueError\u001b[0m: I/O operation on closed file."
-     ]
-    }
-   ],
-   "source": [
-    " # Read the header row first (skip this step if there is no header)\n",
-    "pybankfile_header = next(pybank_csvreader)\n",
-    "print(pybankfile_header)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 65,
+   "execution_count": 300,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "<class 'pandas.core.frame.DataFrame'>\n",
-      "RangeIndex: 86 entries, 0 to 85\n",
-      "Data columns (total 2 columns):\n",
-      "Date             86 non-null object\n",
-      "Profit/Losses    86 non-null int64\n",
-      "dtypes: int64(1), object(1)\n",
-      "memory usage: 1.4+ KB\n"
+      "86\n"
      ]
     }
    ],
    "source": [
-    "pybankfile_pd.info()"
+    "with open(\"budget_data.csv\",\"r\") as pybankfile:\n",
+    "     csv_reader = csv.reader(pybankfile, delimiter=',') \n",
+    "     row_count = sum(1 for row in csv_reader) \n",
+    "     all_months = row_count-1\n",
+    "     print(all_months)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 35,
+   "execution_count": 204,
    "metadata": {},
    "outputs": [
     {
-     "data": {
-      "text/html": [
-       "<div>\n",
-       "<style scoped>\n",
-       "    .dataframe tbody tr th:only-of-type {\n",
-       "        vertical-align: middle;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe tbody tr th {\n",
-       "        vertical-align: top;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe thead th {\n",
-       "        text-align: right;\n",
-       "    }\n",
-       "</style>\n",
-       "<table border=\"1\" class=\"dataframe\">\n",
-       "  <thead>\n",
-       "    <tr style=\"text-align: right;\">\n",
-       "      <th></th>\n",
-       "      <th>Profit/Losses</th>\n",
-       "    </tr>\n",
-       "  </thead>\n",
-       "  <tbody>\n",
-       "    <tr>\n",
-       "      <th>count</th>\n",
-       "      <td>8.600000e+01</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>mean</th>\n",
-       "      <td>4.463090e+05</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>std</th>\n",
-       "      <td>5.363579e+05</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>min</th>\n",
-       "      <td>-1.196225e+06</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>25%</th>\n",
-       "      <td>1.821620e+05</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>50%</th>\n",
-       "      <td>5.703280e+05</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>75%</th>\n",
-       "      <td>7.952262e+05</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>max</th>\n",
-       "      <td>1.170593e+06</td>\n",
-       "    </tr>\n",
-       "  </tbody>\n",
-       "</table>\n",
-       "</div>"
-      ],
-      "text/plain": [
-       "       Profit/Losses\n",
-       "count   8.600000e+01\n",
-       "mean    4.463090e+05\n",
-       "std     5.363579e+05\n",
-       "min    -1.196225e+06\n",
-       "25%     1.821620e+05\n",
-       "50%     5.703280e+05\n",
-       "75%     7.952262e+05\n",
-       "max     1.170593e+06"
-      ]
-     },
-     "execution_count": 35,
-     "metadata": {},
-     "output_type": "execute_result"
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "CSV Header: ['Date', 'Profit/Losses']\n"
+     ]
     }
    ],
    "source": [
-    "pybankfile_pd.describe()"
+    "with open(\"budget_data.csv\", newline=\"\") as pybankfile:\n",
+    "    csv_reader = csv.reader(pybankfile, delimiter=',')      \n",
+    "    columns = next(csv_reader)\n",
+    "    print(f\"CSV Header: {columns}\")"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 36,
+   "execution_count": 292,
    "metadata": {},
    "outputs": [
     {
-     "data": {
-      "text/plain": [
-       "Date             Apr-2010\n",
-       "Profit/Losses    -1196225\n",
-       "dtype: object"
-      ]
-     },
-     "execution_count": 36,
-     "metadata": {},
-     "output_type": "execute_result"
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Jan-2010', 'Feb-2010', 'Mar-2010', 'Apr-2010', 'May-2010', 'Jun-2010', 'Jul-2010', 'Aug-2010', 'Sep-2010', 'Oct-2010', 'Nov-2010', 'Dec-2010', 'Jan-2011', 'Feb-2011', 'Mar-2011', 'Apr-2011', 'May-2011', 'Jun-2011', 'Jul-2011', 'Aug-2011', 'Sep-2011', 'Oct-2011', 'Nov-2011', 'Dec-2011', 'Jan-2012', 'Feb-2012', 'Mar-2012', 'Apr-2012', 'May-2012', 'Jun-2012', 'Jul-2012', 'Aug-2012', 'Sep-2012', 'Oct-2012', 'Nov-2012', 'Dec-2012', 'Jan-2013', 'Feb-2013', 'Mar-2013', 'Apr-2013', 'May-2013', 'Jun-2013', 'Jul-2013', 'Aug-2013', 'Sep-2013', 'Oct-2013', 'Nov-2013', 'Dec-2013', 'Jan-2014', 'Feb-2014', 'Mar-2014', 'Apr-2014', 'May-2014', 'Jun-2014', 'Jul-2014', 'Aug-2014', 'Sep-2014', 'Oct-2014', 'Nov-2014', 'Dec-2014', 'Jan-2015', 'Feb-2015', 'Mar-2015', 'Apr-2015', 'May-2015', 'Jun-2015', 'Jul-2015', 'Aug-2015', 'Sep-2015', 'Oct-2015', 'Nov-2015', 'Dec-2015', 'Jan-2016', 'Feb-2016', 'Mar-2016', 'Apr-2016', 'May-2016', 'Jun-2016', 'Jul-2016', 'Aug-2016', 'Sep-2016', 'Oct-2016', 'Nov-2016', 'Dec-2016', 'Jan-2017', 'Feb-2017']\n"
+     ]
     }
    ],
    "source": [
-    "pybankfile_pd.min()"
+    "with open(\"budget_data.csv\", newline=\"\") as pybankfile:\n",
+    "    csv_reader = csv.DictReader(pybankfile) \n",
+    "    for row in csv_reader:\n",
+    "        datevalue=str(row['Date'])\n",
+    "        dates.append(datevalue)\n",
+    "    print(dates)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 38,
+   "execution_count": 290,
    "metadata": {},
    "outputs": [
     {
-     "data": {
-      "text/plain": [
-       "Date             Jan-2010Feb-2010Mar-2010Apr-2010May-2010Jun-20...\n",
-       "Profit/Losses                                             38382578\n",
-       "dtype: object"
-      ]
-     },
-     "execution_count": 38,
-     "metadata": {},
-     "output_type": "execute_result"
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "38382578\n"
+     ]
     }
    ],
    "source": [
-    "pybankfile_pd.sum()"
+    "with open(\"budget_data.csv\", newline=\"\") as pybankfile:\n",
+    "    csv_reader = csv.DictReader(pybankfile) \n",
+    "    total = 0\n",
+    "    for row in csv_reader:\n",
+    "        total += int(float(row['Profit/Losses']))\n",
+    "    print(total)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 252,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[867884, 984655, 322013, -69417, 310503, 522857, 1033096, 604885, -216386, 477532, 893810, -80353, 779806, -335203, 697845, 793163, 485070, 584122, 62729, 668179, 899906, 834719, 132003, 309978, -755566, 1170593, 252788, 1151518, 817256, 570757, 506702, -1022534, 475062, 779976, 144175, 542494, 359333, 321469, 67780, 471435, 565603, 872480, 789480, 999942, -1196225, 268997, -687986, 1150461, 682458, 617856, 824098, 581943, 132864, 448062, 689161, 800701, 1166643, 947333, 578668, 988505, 1139715, 1029471, 687533, -524626, 158620, 87795, 423389, 840723, 568529, 332067, 989499, 778237, 650000, -1100387, -174946, 757143, 445709, 712961, -1163797, 569899, 768450, 102685, 795914, 60988, 138230, 671099]\n"
+     ]
+    }
+   ],
+   "source": [
+    "pl_list = []\n",
+    "with open(\"budget_data.csv\", newline=\"\") as pybankfile:\n",
+    "    csv_reader = csv.DictReader(pybankfile) \n",
+    "    for row in csv_reader:\n",
+    "        plvalue=row['Profit/Losses']\n",
+    "        pl_list.append(int(plvalue))\n",
+    "    print(pl_list)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 253,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[116771, -662642, -391430, 379920, 212354, 510239, -428211, -821271, 693918, 416278, -974163, 860159, -1115009, 1033048, 95318, -308093, 99052, -521393, 605450, 231727, -65187, -702716, 177975, -1065544, 1926159, -917805, 898730, -334262, -246499, -64055, -1529236, 1497596, 304914, -635801, 398319, -183161, -37864, -253689, 403655, 94168, 306877, -83000, 210462, -2196167, 1465222, -956983, 1838447, -468003, -64602, 206242, -242155, -449079, 315198, 241099, 111540, 365942, -219310, -368665, 409837, 151210, -110244, -341938, -1212159, 683246, -70825, 335594, 417334, -272194, -236462, 657432, -211262, -128237, -1750387, 925441, 932089, -311434, 267252, -1876758, 1733696, 198551, -665765, 693229, -734926, 77242, 532869]\n"
+     ]
+    }
+   ],
+   "source": [
+    "delta = []\n",
+    "for i in range(1,len(pl_list)):\n",
+    "    delta.append(pl_list[i]-pl_list[i-1])\n",
+    "print(delta)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 261,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "-196785\n"
+     ]
+    }
+   ],
+   "source": [
+    "delta_total=0\n",
+    "for i in range(len(delta)):\n",
+    "    delta_total += delta[i]\n",
+    "print(delta_total)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 319,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "-2315.1176470588234\n"
+     ]
+    }
+   ],
+   "source": [
+    "total = delta_total\n",
+    "total_items= (len(delta))\n",
+    "def mean(total,total_items):\n",
+    "    return total/total_items\n",
+    "avg_chg=mean(total,total_items)\n",
+    "print(avg_chg)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 324,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "24\n",
+      "Jan-2012\n",
+      "1926159\n"
+     ]
+    }
+   ],
+   "source": [
+    "max_increase=max(delta)\n",
+    "print(delta.index(max_increase))\n",
+    "print(dates[24])\n",
+    "print(max_increase)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 326,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "43\n",
+      "Aug-2013\n",
+      "-2196167\n"
+     ]
+    }
+   ],
+   "source": [
+    "min_increase=min(delta)\n",
+    "print(delta.index(min_increase))\n",
+    "print(dates[43])\n",
+    "print(min_increase)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 312,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Total months: 86\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Total months: %s\" %all_months)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 336,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f=open(\"output.txt\",\"a\")\n",
+    "print(\"Financial Summary \\n----------------------------------\",file=f) \n",
+    "print(\"Total months: %s\" %all_months,file=f) \n",
+    "print(\"Total: %s\" %total,file=f) \n",
+    "print(\"Average Change: %s\" %avg_chg,file=f) \n",
+    "print(\"Greatest Increase: %s\" %dates[24],max_increase,file=f) \n",
+    "print(\"Greatest Decrease: %s\" %dates[43],min_increase,file=f) \n",
+    "f.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 335,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Financial Summary \n",
+      "----------------------------------\n",
+      "Total months: 86\n",
+      "Total: -196785\n",
+      "Average Change: -2315.1176470588234\n",
+      "Greatest Increase: Jan-2012\n",
+      "Greatest Decrease: Aug-2013\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Financial Summary \\n----------------------------------\") \n",
+    "print(\"Total months: %s\" %all_months) \n",
+    "print(\"Total: %s\" %total) \n",
+    "print(\"Average Change: %s\" %avg_chg) \n",
+    "print(\"Greatest Increase: %s\" %dates[24]) \n",
+    "print(\"Greatest Decrease: %s\" %dates[43])"
    ]
   },
   {

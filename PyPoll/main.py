@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 135,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -12,7 +12,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 136,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -21,7 +21,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 137,
    "metadata": {},
    "outputs": [
     {
@@ -42,29 +42,21 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 138,
    "metadata": {},
    "outputs": [],
    "source": [
     "ids=[]\n",
     "county=[]\n",
     "candidate=[]\n",
-    "election={\"ids\",\"county\",\"candidate\"}"
+    "election={}"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 139,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Khan\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "candidate=[]\n",
     "canvalue= str\n",
@@ -77,17 +69,9 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 140,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "16793141\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "idvalue= int\n",
     "with open(\"election_data.csv\",\"r\") as pypollfile:\n",
@@ -99,17 +83,9 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 141,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Marsh\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "countyvalue= int\n",
     "with open(\"election_data.csv\",\"r\") as pypollfile:\n",
@@ -121,7 +97,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
+   "execution_count": 186,
    "metadata": {},
    "outputs": [
     {
@@ -133,28 +109,30 @@
     }
    ],
    "source": [
+    "candidate_list=[]\n",
     "candidate_list=list(set(candidate))\n",
     "print(candidate_list)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 59,
+   "execution_count": 205,
    "metadata": {},
    "outputs": [
     {
-     "ename": "AttributeError",
-     "evalue": "'dict' object has no attribute 'append'",
-     "output_type": "error",
-     "traceback": [
-      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[0;31mAttributeError\u001b[0m                            Traceback (most recent call last)",
-      "\u001b[0;32m<ipython-input-59-188c4af04af6>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m     12\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     13\u001b[0m \u001b[0melection_results\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m{\u001b[0m\u001b[0;34m}\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 14\u001b[0;31m \u001b[0melection_results\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mappend\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mcandidate_list\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     15\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0melection_results\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
-      "\u001b[0;31mAttributeError\u001b[0m: 'dict' object has no attribute 'append'"
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[19.999994319797125, 2.999999147969569, 63.00001050837531, 13.999996023857989]\n",
+      "{'Correy': 19.999994319797125, \"O'Tooley\": 2.999999147969569, 'Khan': 63.00001050837531, 'Li': 13.999996023857989}\n",
+      "Khan\n"
      ]
     }
    ],
    "source": [
+    "candidate_list=[]\n",
+    "candidate_list=list(set(candidate))\n",
+    "\n",
     "#Get total votes for each candidate\n",
     "correy_votes=candidate.count(\"Correy\")\n",
     "otooley_votes=candidate.count(\"O'Tooley\")\n",
@@ -162,39 +140,57 @@
     "li_votes=candidate.count(\"Li\")\n",
     "\n",
     "#Get % of total vote each candidate got\n",
+    "vote_per=[]\n",
     "per_correy=((correy_votes/all_votes)*100)\n",
+    "vote_per.append(per_correy)\n",
     "per_otooley=((otooley_votes/all_votes)*100)\n",
+    "vote_per.append(per_otooley)\n",
     "per_khan=((khan_votes/all_votes)*100)\n",
+    "vote_per.append(per_khan)\n",
     "per_li=((li_votes/all_votes)*100)\n",
+    "vote_per.append(per_li)\n",
+    "print(vote_per)\n",
     "\n",
-    "election_results={}\n",
-    "election_results.append[candidate_list]\n",
-    "print(election_results)"
+    "winner=max(vote_per)\n",
+    "\n",
+    "election_results={\n",
+    "    candidate_list[0]:vote_per[0],\n",
+    "    candidate_list[1]:vote_per[1],\n",
+    "    candidate_list[2]:vote_per[2],\n",
+    "    candidate_list[3]:vote_per[3]\n",
+    "}\n",
+    "print(election_results)\n",
+    "i=0\n",
+    "for x,y in election_results.items():\n",
+    "    while i <= 3:\n",
+    "        if  winner == y:\n",
+    "            winner_name = x\n",
+    "        i += 1\n",
+    "print(winner_name)\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 64,
+   "execution_count": 206,
    "metadata": {},
    "outputs": [],
    "source": [
     "f=open(\"output2.txt\",\"a\")\n",
-    "print(\"Election Results \\n----------------------------------\",file=f) \n",
+    "print((\"Election Results \\n----------------------------------\"),file=f) \n",
     "print(\"Total votes: %s\" %all_votes,file=f) \n",
     "print(\"\\n----------------------------------\",file=f)\n",
-    "print(candidate_list[0],\":\",per_correy,\"%\", \"(\", correy_votes,\")\",file=f)\n",
-    "print(candidate_list[0],\":\",per_correy,\"%\", \"(\", correy_votes,\")\",file=f)\n",
-    "print(candidate_list[1],\":\",per_otooley,\"%\", \"(\", otooley_votes,\")\",file=f)\n",
-    "print(candidate_list[2],\":\",per_khan,\"%\", \"(\", khan_votes,\")\",file=f)\n",
-    "print(candidate_list[3],\":\",per_li,\"%\", \"(\", li_votes,\")\",file=f)\n",
+    "print((candidate_list[0],\":\",per_correy,\"%\", \"(\", correy_votes,\")\"),file=f)\n",
+    "print((candidate_list[1],\":\",per_otooley,\"%\", \"(\", otooley_votes,\")\"),file=f)\n",
+    "print((candidate_list[2],\":\",per_khan,\"%\", \"(\", khan_votes,\")\"),file=f)\n",
+    "print((candidate_list[3],\":\",per_li,\"%\", \"(\", li_votes,\")\"),file=f)\n",
     "print(\"----------------------------------\",file=f)\n",
-    "print(\"Winner: %s\" ,file=f) \n",
+    "print((\"Winner: \",winner_name),file=f) \n",
     "f.close()"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 62,
+   "execution_count": 207,
    "metadata": {},
    "outputs": [
     {
@@ -209,7 +205,8 @@
       "O'Tooley : 2.999999147969569 % ( 105630 )\n",
       "Khan : 63.00001050837531 % ( 2218231 )\n",
       "Li : 13.999996023857989 % ( 492940 )\n",
-      "----------------------------------\n"
+      "----------------------------------\n",
+      "Winner:  Khan\n"
      ]
     }
    ],
@@ -222,8 +219,15 @@
     "print(candidate_list[2],\":\",per_khan,\"%\", \"(\", khan_votes,\")\")\n",
     "print(candidate_list[3],\":\",per_li,\"%\", \"(\", li_votes,\")\")\n",
     "print(\"----------------------------------\")\n",
-    "print(\"Winner: %s\": )\n"
+    "print(\"Winner: \",winner_name)\n"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   },
   {
    "cell_type": "code",
